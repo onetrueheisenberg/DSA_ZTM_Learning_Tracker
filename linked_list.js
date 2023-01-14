@@ -71,23 +71,52 @@ class LinkedList {
         }
         return currentNode;
     }
+
+    print() {
+        const array = [];
+        let temp = this.head;
+        while ( temp ) {
+            array.push(temp.value);
+            temp = temp.next;
+        }
+        return array;
+    }
+
+    reverse() {
+        if ( this.length < 2 ) return this;
+        let first = this.head;
+        this.tail = this.head;
+        let second = first.next;
+        while ( second ) {
+            let temp = second.next;
+            second.next = first;
+            first = second;
+            second = temp;
+        }
+        this.head.next = null;
+        this.head = first;
+        return this;
+    }
 }
 
 const linkedList = new LinkedList(100);
-console.log(JSON.stringify(linkedList));
+console.log(linkedList.print());
 
 linkedList.append(200);
-console.log(JSON.stringify(linkedList));
+console.log(linkedList.print());
 
 linkedList.prepend(300);
-console.log(JSON.stringify(linkedList));
+console.log(linkedList.print());
 
 linkedList.insert(1, 400);
-console.log(JSON.stringify(linkedList));
+console.log(linkedList.print());
 
 linkedList.remove(2);
-console.log(JSON.stringify(linkedList));
+console.log(linkedList.print());
+
+linkedList.reverse();
+console.log(linkedList.print());
 
 const linkedListNull = new LinkedList(3);
 linkedListNull.remove(0);
-console.log(JSON.stringify(linkedListNull));
+console.log(linkedListNull.print());
