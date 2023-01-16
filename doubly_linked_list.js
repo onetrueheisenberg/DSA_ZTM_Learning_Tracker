@@ -98,26 +98,53 @@ class DoublyLinkedList {
         return temp;
     }
 
+    print() {
+        const array = [];
+        let temp = this.head;
+        while ( temp ) {
+            array.push(temp.value);
+            temp = temp.next;
+        }
+        return array;
+    }
+
     reverse() {
-        
+        if ( this.length < 2 ) return this;
+        let first = this.head;
+        this.tail = this.head;
+        let second = first.next;
+        while ( second ) {
+            let temp = second.next;
+            second.prev = first.prev;
+            first.next = second.next;
+            first.prev = second;
+            second.next = first;
+            first = second;
+            second = temp;
+        }
+        this.head = first;
+        return this;
     }
 }
 
 const doublyLinkedList = new DoublyLinkedList(100);
-console.log(doublyLinkedList);
+console.log(doublyLinkedList.print());
 
 doublyLinkedList.append(200);
-console.log(doublyLinkedList);
+console.log(doublyLinkedList.print());
 
 doublyLinkedList.prepend(300);
-console.log(doublyLinkedList);
+console.log(doublyLinkedList.print());
 
 doublyLinkedList.insert(1, 400);
-console.log(doublyLinkedList);
+console.log(doublyLinkedList.print());
 
 doublyLinkedList.remove(2);
-console.log(doublyLinkedList);
+console.log(doublyLinkedList.print());
 
-const linkedListNull = new DoublyLinkedList(3);
-linkedListNull.remove(0);
-console.log(linkedListNull);
+doublyLinkedList.reverse();
+console.log(doublyLinkedList.print());
+
+const doublyLinkedListNull = new DoublyLinkedList(3);
+doublyLinkedListNull.remove(0);
+console.log(doublyLinkedListNull.print());
